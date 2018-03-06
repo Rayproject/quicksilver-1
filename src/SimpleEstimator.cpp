@@ -54,7 +54,7 @@ cardStat SimpleEstimator::join(RPQTree *q, cardStat l, cardStat r) {
 
     uint32_t in = l.noIn;
     uint32_t out = r.noOut;
-    auto paths = std::min(l.noPaths * r.noPaths /(r.noIn/4),l.noPaths * r.noPaths /(l.noOut/4));
+    auto paths = std::min(l.noPaths * r.noPaths /(r.noIn/graph->getNoLabels()),l.noPaths * r.noPaths /(l.noOut/graph->getNoLabels()));
 
     return cardStat {in, paths, out};
 }
