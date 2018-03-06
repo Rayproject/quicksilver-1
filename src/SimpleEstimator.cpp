@@ -15,14 +15,14 @@ void SimpleEstimator::prepare() {
     for (uint32_t vertex = 0; vertex < graph->getNoVertices(); ++vertex) {
         for (auto out : graph->adj[vertex]) {
             const auto label = out.first;
-            starts[label]++;
+//            starts[label]++;
             paths[label]++;
         }
 
-        for (auto in : graph->reverse_adj[vertex]) {
-            const auto label = in.first;
-            ends[label]++;
-        }
+//        for (auto in : graph->reverse_adj[vertex]) {
+//            const auto label = in.first;
+//            ends[label]++;
+//        }
     }
 }
 
@@ -36,15 +36,15 @@ cardStat SimpleEstimator::estimate(RPQTree *q) {
 
     PathElement pathElement = getPathElement(q);
 
-    if (*pathElement.direction == '+') {
-        return cardStat {starts[pathElement.label],
+//    if (*pathElement.direction == '+') {
+        return cardStat {paths[pathElement.label],
                          paths[pathElement.label],
-                         ends[pathElement.label]};
-    } else {
-        return cardStat {ends[pathElement.label],
-                         paths[pathElement.label],
-                         starts[pathElement.label]};
-    }
+                         paths[pathElement.label]};
+//    } else {
+//        return cardStat {paths[pathElement.label],
+//                         paths[pathElement.label],
+//                         paths[pathElement.label]};
+//    }
 }
 
 cardStat SimpleEstimator::join(RPQTree *q, cardStat l, cardStat r) {
